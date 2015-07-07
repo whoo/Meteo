@@ -21,6 +21,11 @@ size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 		json_object *w,*m,*c1;
 
 		c1=json_object_array_get_idx(list,a);
+
+		// LIST[0]->name
+		// LIST[0]->weather[0]->description
+		// LIST[0]->main['temp']
+
 		w=	json_object_array_get_idx(json_object_object_get(c1,"weather"),0);
 		m= 	json_object_object_get(c1,"main");
 
