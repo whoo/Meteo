@@ -3,11 +3,14 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
-
+#include <ctype.h>
 #include <json-c/json.h>
 
 
 #define url "http://api.openweathermap.org/data/2.5/group?id=6077243,3033123,934154&units=metric&lang=fr"
+
+
+char *strupr(char *s) { unsigned c; unsigned char *p = (unsigned char *)s; while (c = *p) *p++ =(unsigned char)((int)c>130)?'E':toupper(c); return s;} 
 
 size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 {
@@ -28,8 +31,8 @@ size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 
 		w=	json_object_array_get_idx(json_object_object_get(c1,"weather"),0);
 		m= 	json_object_object_get(c1,"main");
-
-		printf("%s - %s : Temp %d° (min %d/max %d) %d %%\n",
+	char *txt=malloc(100);
+	sprintf(txt,"%s - %s : Temp %dC (min %d/max %d) %d %%\n",
 				json_object_get_string(json_object_object_get(c1,"name")),
 				json_object_get_string(json_object_object_get(w,"description")),
 				json_object_get_int(json_object_object_get(m,"temp")),
@@ -37,6 +40,8 @@ size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 				json_object_get_int(json_object_object_get(m,"temp_max")),
 				json_object_get_int(json_object_object_get(m,"humidity"))
 		      );
+
+	printf("%s",strupr(txt));
 
 	}
 
