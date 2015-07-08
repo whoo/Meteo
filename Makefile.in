@@ -1,5 +1,5 @@
-LDFLAGS=-lcurl -ljson-c
-CFLAGS=-std=gnu99 
+LDFLAGS=-lcurl ${JSON_LIBS}
+CFLAGS=-std=gnu99 ${JSON_CFLAGS}
 CC=gcc
 all: Meteo
 
@@ -8,3 +8,6 @@ Meteo_SOURCES = Meteo.c
 
 AM_CFLAGS = $(json-c_CFLAGS)
 LIBS += $(json-c_CFLAGS)
+
+JSON_CFLAGS = @JSON_CFLAGS@
+JSON_LIBS = @JSON_LIBS@
