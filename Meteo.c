@@ -10,13 +10,19 @@
 #define url "http://api.openweathermap.org/data/2.5/group?id=6077243,3033123,934154&units=metric&lang=fr"
 
 
-char *strupr(char *s) { unsigned c; unsigned char *p = (unsigned char *)s; while (c = *p) *p++ =(unsigned char)((int)c>130)?'E':toupper(c); return s;} 
+char *strupr(char *s) { 
+	unsigned c; 
+	unsigned char *p = (unsigned char *)s; 
+	while (c = *p) *p++ =(unsigned char)((int)c>130)?'E':toupper(c); 
+	return s;
+} 
 
 size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 {
 	json_object *new_obj,*list;
 
-	new_obj = json_tokener_parse(ptr);
+	if (!(new_obj = json_tokener_parse(ptr))) return 0;
+
 	list=json_object_object_get(new_obj,"list");
 
 	for (int a=0;a<json_object_array_length(list);a++)
@@ -41,7 +47,8 @@ size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 				json_object_get_int(json_object_object_get(m,"humidity"))
 		      );
 
-	printf("%s",strupr(txt));
+//	printf("%s",strupr(txt));
+	printf("%s",txt);
 
 	}
 
@@ -51,15 +58,14 @@ size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 int main(int argc,char **argv)
 {
 
-CURL *curl = curl_easy_init();
-CURLcode res;
+	CURL *curl = curl_easy_init();
+	CURLcode res;
 
-curl_easy_setopt(curl, CURLOPT_URL,url);
-curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION, writedd);
-res = curl_easy_perform(curl);
-curl_easy_cleanup(curl);
+	curl_easy_setopt(curl, CURLOPT_URL,url);
+	curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION, writedd);
+	res = curl_easy_perform(curl);
+	curl_easy_cleanup(curl);
 
-return 1;
+	return 1;
 }
-
 
