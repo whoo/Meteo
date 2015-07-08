@@ -37,21 +37,20 @@ size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 
 		w=	json_object_array_get_idx(json_object_object_get(c1,"weather"),0);
 		m= 	json_object_object_get(c1,"main");
-	char *txt=malloc(100);
-	sprintf(txt,"%s - %s : Temp %dC (min %d/max %d) %d %%\n",
+		char *txt=malloc(100);
+		sprintf(txt,"%s - %s : Temp %dC (min %d/max %d) %d %%\n",
 				json_object_get_string(json_object_object_get(c1,"name")),
 				json_object_get_string(json_object_object_get(w,"description")),
 				json_object_get_int(json_object_object_get(m,"temp")),
 				json_object_get_int(json_object_object_get(m,"temp_min")),
 				json_object_get_int(json_object_object_get(m,"temp_max")),
 				json_object_get_int(json_object_object_get(m,"humidity"))
-		      );
+		       );
 
-//	printf("%s",strupr(txt));
-	printf("%s",txt);
+		//	printf("%s",strupr(txt));
+		printf("%s",txt);
 
 	}
-
 	return 0;
 }
 
