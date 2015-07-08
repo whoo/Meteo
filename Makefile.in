@@ -1,0 +1,10 @@
+LDFLAGS=-lcurl -ljson-c
+CFLAGS=-std=gnu99 
+CC=gcc
+all: Meteo
+
+bin_PROGRAMS = Meteo
+Meteo_SOURCES = Meteo.c
+
+AM_CFLAGS = $(json-c_CFLAGS)
+LIBS += $(json-c_CFLAGS)
