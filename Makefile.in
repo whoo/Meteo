@@ -1,4 +1,4 @@
-LDFLAGS=-lcurl ${JSON_LIBS}
+LDFLAGS=${CURL_LIBS} ${JSON_LIBS}
 CFLAGS=-std=gnu99 ${JSON_CFLAGS}
 CC=gcc
 all: Meteo
@@ -11,3 +11,9 @@ LIBS += $(json-c_CFLAGS)
 
 JSON_CFLAGS = @JSON_CFLAGS@
 JSON_LIBS = @JSON_LIBS@
+
+CURL_CFLAGS = @CURL_CFLAGS@
+CURL_LIBS = @CURL_LIBS@
+
+clean:
+	rm -f ./Meteo
