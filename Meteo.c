@@ -4,7 +4,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <ctype.h>
-#include <json-c/json.h>
+#include <json.h>
 
 
 #define url "http://api.openweathermap.org/data/2.5/group?id=6077243,3033123,934154&units=metric&lang=fr"
