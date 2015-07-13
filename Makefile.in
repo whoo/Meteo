@@ -1,7 +1,9 @@
 LDFLAGS=${CURL_LIBS} ${JSON_LIBS}
-CFLAGS=-std=gnu99 ${JSON_CFLAGS}
+CFLAGS=-std=gnu99 ${JSON_CFLAGS} -O3
 CC=gcc
+
 all: Meteo
+	strip Meteo
 
 bin_PROGRAMS = Meteo
 Meteo_SOURCES = Meteo.c
