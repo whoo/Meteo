@@ -10,7 +10,7 @@
 #include <libxml/tree.h>
 
 
-#define URL "http://www.france24.com/fr/actualites/rss/"
+#define URL "http://rss.lapresse.ca/179.xml"
 
 struct MemoryStruct { char *memory; size_t size; };
 static void
@@ -31,7 +31,7 @@ print_element_names(xmlNode * a_node)
 					if (!xmlStrcmp(cur->name,"category")&&cur->children)
 						printf("[%s]",cur->children->content);
 					if (!xmlStrcmp(cur->name,"title")&&cur->children)
-						printf(" %s\n",cur->children->content);
+						printf("%s\n",cur->children->content);
 				}
 
 
@@ -77,9 +77,6 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, void *userp)
 	mem->memory[mem->size]=0;
 	return realsize;
 }
-
-
-
 
 int main(int argc,char **argv)
 {

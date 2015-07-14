@@ -10,6 +10,9 @@
 #define url "http://api.openweathermap.org/data/2.5/group?id=6077243,3033123,934154&units=metric&lang=fr"
 
 
+struct MemoryStruct { char *memory; size_t size; };
+
+
 char *strupr(char *s) { 
 	unsigned c; 
 	unsigned char *p = (unsigned char *)s; 
@@ -17,11 +20,11 @@ char *strupr(char *s) {
 	return s;
 } 
 
-size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
+size_t parsemeteo(struct MemoryStruct *ptr)
 {
 	json_object *new_obj,*list;
 
-	if (!(new_obj = json_tokener_parse(ptr))) return 0;
+	if (!(new_obj = json_tokener_parse(ptr->memory))) return 0;
 
 	list=json_object_object_get(new_obj,"list");
 
@@ -54,15 +57,41 @@ size_t writedd(char *ptr, size_t size, size_t nmemb, void *userdata)
 	return 0;
 }
 
+
+
+size_t writedd(char *ptr, size_t size, size_t nmemb, void *userp)
+{
+	size_t realsize=size * nmemb;
+	struct MemoryStruct *mem = (struct MemoryStruct *)userp;
+	mem->memory = realloc(mem->memory,mem->size + realsize +1 );
+	memcpy(&(mem->memory[mem->size]),ptr,realsize);
+	mem->size +=realsize;
+	mem->memory[mem->size]=0;
+	return realsize;
+
+}
+
 int main(int argc,char **argv)
 {
 
 	CURL *curl = curl_easy_init();
 	CURLcode res;
+	struct MemoryStruct buf;
+
+	 buf.memory = malloc(1);
+	          buf.size = 0;
+
 
 	curl_easy_setopt(curl, CURLOPT_URL,url);
-	curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION, writedd);
+	curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,writedd );
+	curl_easy_setopt(curl,CURLOPT_WRITEDATA, (void*)&buf);
 	res = curl_easy_perform(curl);
+
+	if (res==CURLE_OK)
+	{
+	parsemeteo(&buf);
+	}
+	
 	curl_easy_cleanup(curl);
 
 	return 1;
