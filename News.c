@@ -20,21 +20,20 @@ static void print_element_names(xmlNode * a_node)
 
 	for (cur_node = a_node; cur_node; cur_node = cur_node->next) {
 		if (cur_node->type == XML_ELEMENT_NODE) {
-			if (!xmlStrcmp(cur_node->name,"item"))
+			if (!xmlStrcmp(cur_node->name,(const xmlChar *)"item"))
 			{
 				cur=cur_node;
 				for (cur=cur_node->children;cur;cur=cur->next)
 				{
-					if (!xmlStrcmp(cur->name,"category")&&cur->children)
+					if (!xmlStrcmp(cur->name,(const xmlChar *)"category")&&cur->children)
 						printf("[%s]",cur->children->content);
-					if (!xmlStrcmp(cur->name,"title")&&cur->children)
+					if (!xmlStrcmp(cur->name,(const xmlChar *)"title")&&cur->children)
 						printf("%s\n",cur->children->content);
 				}
 
 
 			}
 		}
-
 		print_element_names(cur_node->children);
 	}
 }
@@ -78,11 +77,8 @@ int main(int argc,char **argv)
 	chunk.memory = malloc(1);
 	chunk.size = 0;
 
-
-
 	curl_global_init(CURL_GLOBAL_ALL);
 	curl_easy_setopt(curl, CURLOPT_URL,URL);
-	//	curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION, parsxml);//
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*)&chunk);
 	res = curl_easy_perform(curl);

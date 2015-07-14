@@ -1,5 +1,5 @@
 LDFLAGS=${CURL_LIBS} ${JSON_LIBS} @XML_LIBS@
-CFLAGS=-std=gnu99 ${JSON_CFLAGS} -O3 @XML_CFLAGS@
+CFLAGS=-std=gnu99 ${JSON_CFLAGS} -O3 @XML_CFLAGS@ -Wdeprecated-declarations
 CC=gcc
 
 all: Meteo News
