@@ -9,12 +9,10 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-
 #define URL "http://rss.lapresse.ca/179.xml"
 
 struct MemoryStruct { char *memory; size_t size; };
-static void
-print_element_names(xmlNode * a_node)
+static void print_element_names(xmlNode * a_node)
 {
 	xmlNode *cur_node = NULL,*cur;
 	char *key;
@@ -22,7 +20,6 @@ print_element_names(xmlNode * a_node)
 
 	for (cur_node = a_node; cur_node; cur_node = cur_node->next) {
 		if (cur_node->type == XML_ELEMENT_NODE) {
-			//			printf("node type: Element, name: %s\n", cur_node->name);
 			if (!xmlStrcmp(cur_node->name,"item"))
 			{
 				cur=cur_node;
@@ -51,20 +48,12 @@ void parsxml(struct MemoryStruct *document)
 
 	doc=xmlParseMemory(document->memory,document->size);
 	cur=xmlDocGetRootElement(doc);
-	//cur=cur->xmlChildrenNode;
-	//
 	print_element_names(cur->children);
-	//
-
 
 	xmlMemoryDump();
 
-
 	xmlFreeDoc(doc);
 	xmlCleanupParser();
-
-
-
 }
 
 size_t write_data(void *ptr, size_t size, size_t nmemb, void *userp) 
