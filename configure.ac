@@ -6,6 +6,7 @@ AC_PROG_CC                        # or AC_PROG_CXX
 PKG_CHECK_MODULES([JSON],[json-c],json=1,json=0)
 PKG_CHECK_MODULES([JSON],[json],json=1,json=0) 
 PKG_CHECK_MODULES([CURL],[libcurl])
+PKG_CHECK_MODULES(XML, libxml-2.0 >= 2.4)
 
 AC_CHECK_LIB([curl], [curl_easy_perform])
 
@@ -18,5 +19,7 @@ AC_CONFIG_FILES([Makefile])
 AC_SUBST(JSON_CFLAGS)
 AC_SUBST(JSON_LIBS)
 AC_SUBST(CURL_LIBS)
+AC_SUBST(XML_LIBS)
+AC_SUBST(XML_CFLAGS)
 AC_OUTPUT
 
