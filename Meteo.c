@@ -1,24 +1,14 @@
-#include <stdio.h>
+#include "utils.h"
+
 #include <curl/curl.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <string.h>
-#include <ctype.h>
 #include <json.h>
 
 
 #define url "http://api.openweathermap.org/data/2.5/group?id=6077243,3033123,934154&units=metric&lang=fr"
 
 
-struct MemoryStruct { char *memory; size_t size; };
 
 
-char *strupr(char *s) { 
-	unsigned c; 
-	unsigned char *p = (unsigned char *)s; 
-	while ( (c = *p) ) *p++ =(unsigned char)((int)c>130)?'E':toupper(c); 
-	return s;
-} 
 
 size_t parsemeteo(struct MemoryStruct *ptr)
 {
@@ -51,7 +41,7 @@ size_t parsemeteo(struct MemoryStruct *ptr)
 		       );
 
 		//	printf("%s",strupr(txt));
-		printf("%s",txt);
+		printf("%s",strupr(txt));
 
 	}
 	return 0;

@@ -19,4 +19,4 @@ CURL_CFLAGS = @CURL_CFLAGS@
 CURL_LIBS = @CURL_LIBS@
 
 clean:
-	rm -f ./Meteo
+	rm -f ./Meteo ./News
