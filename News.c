@@ -5,7 +5,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-#define URL {   "http://www.france24.com/fr/actualites/rss",                                    \
+#define URL {   "http://www.france24.com/fr/actualites/rss",               				\
 	"http://www.france24.com/fr/europe/rss/",                                       \
 	"http://rss.lapresse.ca/179.xml",                                               \
 	"https://news.google.com/news/feeds?pz=1&cf=all&ned=fr&hl=fr&topic=t&output=rss",\
@@ -77,8 +77,9 @@ int main(int argc,char **argv)
 	unsigned int seed;
 	FILE* urandom = fopen("/dev/urandom", "r");
 	char *tburl[]=URL;
-
-	fread(&seed, sizeof(int), 1, urandom);
+	if (urandom)
+	{ int 	a=fread(&seed, sizeof(int), 1, urandom);
+	}
 	fclose(urandom);
 	srand(seed);
 
