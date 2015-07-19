@@ -41,7 +41,7 @@ size_t parsemeteo(struct MemoryStruct *ptr)
 		       );
 
 		//	printf("%s",strupr(txt));
-		printf("%s",strupr(txt));
+		printf("%s",Supper(txt));
 
 	}
 	return 0;

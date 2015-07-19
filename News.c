@@ -19,6 +19,7 @@ static void print_element_names(xmlNode * a_node)
 	xmlNode *cur_node = NULL,*cur;
 	char *key;
 	char *name;
+	char tb[128];
 
 	for (cur_node = a_node; cur_node; cur_node = cur_node->next) {
 		if (cur_node->type == XML_ELEMENT_NODE) {
@@ -30,7 +31,12 @@ static void print_element_names(xmlNode * a_node)
 /*					if (!xmlStrcmp(cur->name,(const xmlChar *)"category")&&cur->children)
 						printf("[%s]",cur->children->content);*/
 					if (!xmlStrcmp(cur->name,(const xmlChar *)"title")&&cur->children)
-						printf("%s\n",(cur->children->content));
+						{
+						//printf("%s\n",(cur->children->content));
+						
+						strcpy(tb,cur->children->content);
+						printf("%s\n",Supper(cur->children->content));
+						}
 				}
 			}
 		}
